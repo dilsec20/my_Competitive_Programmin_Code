@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Theory in C++ for Competitive Programming</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #e74c3c;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #e74c3c;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+
+        h4 {
+            color: #34495e;
+            margin-top: 20px;
+        }
+
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+        }
+
+        pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        pre code {
+            background-color: transparent;
+            color: #ecf0f1;
+            padding: 0;
+        }
+
+        .toc {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .toc h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        .toc ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .toc a {
+            color: #e74c3c;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .tip {
+            background-color: #d1ecf1;
+            padding: 15px;
+            border-left: 4px solid #17a2b8;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .warning {
+            background-color: #f8d7da;
+            padding: 15px;
+            border-left: 4px solid #dc3545;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            padding: 15px;
+            border-left: 4px solid #28a745;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .algorithm-box {
+            background-color: #f8f9fa;
+            border: 2px solid #e74c3c;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .algorithm-box h4 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+
+        .complexity {
+            background-color: #e8f5e8;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .problem-link {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .problem-link:hover {
+            text-decoration: underline;
+        }
+
+        .difficulty-easy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .difficulty-medium {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .difficulty-hard {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e74c3c;
+            color: #7f8c8d;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-to-top:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Number Theory in C++ for Competitive Programming</h1>
+
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#basic-concepts">Basic Number Theory Concepts</a></li>
+                <li><a href="#prime-numbers">Prime Numbers</a></li>
+                <li><a href="#gcd-lcm">GCD and LCM</a></li>
+                <li><a href="#modular-arithmetic">Modular Arithmetic</a></li>
+                <li><a href="#euler-totient">Euler's Totient Function</a></li>
+                <li><a href="#chinese-remainder">Chinese Remainder Theorem</a></li>
+                <li><a href="#combinatorics">Combinatorics</a></li>
+                <li><a href="#advanced-topics">Advanced Topics</a></li>
+                <li><a href="#practice-problems">Practice Problems</a></li>
+                <li><a href="#tips">Tips for Competitive Programming</a></li>
+            </ul>
+        </div>
+
+        <h2 id="introduction">Introduction</h2>
+        <p>Number Theory is a fundamental branch of mathematics that deals with properties of integers. In competitive
+            programming, number theory problems are very common and require efficient algorithms to solve within time
+            constraints.</p>
+
+        <div class="highlight">
+            <h4>What You'll Learn:</h4>
+            <ul>
+                <li>Prime number algorithms (Sieve of Eratosthenes, Miller-Rabin)</li>
+                <li>GCD/LCM calculations (Euclidean algorithm, Extended Euclidean)</li>
+                <li>Modular arithmetic and exponentiation</li>
+                <li>Euler's totient function and applications</li>
+                <li>Chinese Remainder Theorem</li>
+                <li>Combinatorics and counting problems</li>
+                <li>Advanced topics like discrete logarithms</li>
+            </ul>
+        </div>
+
+        <h2 id="basic-concepts">Basic Number Theory Concepts</h2>
+
+        <h3>Divisibility</h3>
+        <p>A number <code>a</code> divides <code>b</code> (written as <code>a | b</code>) if there exists an integer
+            <code>k</code> such that <code>b = a * k</code>.
+        </p>
+
+        <pre><code>bool isDivisible(int a, int b) {
+    return b % a == 0;
+}</code></pre>
+
+        <h3>Prime Numbers</h3>
+        <p>A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.</p>
+
+        <pre><code>bool isPrime(int n) {
+    if (n <= 1) return false;
+    if (n <= 3) return true;
+    if (n % 2 == 0 || n % 3 == 0) return false;
+    
+    for (int i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) {
+            return false;
+        }
+    }
+    return true;
+}</code></pre>
+
+        <h3>Factorization</h3>
+        <p>Finding all prime factors of a number.</p>
+
+        <pre><code>vector&lt;int&gt; getPrimeFactors(int n) {
+    vector&lt;int&gt; factors;
+    
+    // Check for 2
+    while (n % 2 == 0) {
+        factors.push_back(2);
+        n /= 2;
+    }
+    
+    // Check for odd numbers
+    for (int i = 3; i * i &lt;= n; i += 2) {
+        while (n % i == 0) {
+            factors.push_back(i);
+            n /= i;
+        }
+    }
+    
+    // If n is still &gt; 1, it's a prime factor
+    if (n &gt; 1) {
+        factors.push_back(n);
+    }
+    
+    return factors;
+}</code></pre>
+
+        <h2 id="prime-numbers">Prime Numbers</h2>
+
+        <div class="algorithm-box">
+            <h4>Sieve of Eratosthenes</h4>
+            <p>Efficiently find all prime numbers up to a given limit.</p>
+            <div class="complexity">Time Complexity: O(n log log n)</div>
+        </div>
+
+        <pre><code>vector&lt;bool&gt; sieve(int n) {
+    vector&lt;bool&gt; isPrime(n + 1, true);
+    isPrime[0] = isPrime[1] = false;
+    
+    for (int i = 2; i * i &lt;= n; i++) {
+        if (isPrime[i]) {
+            for (int j = i * i; j &lt;= n; j += i) {
+                isPrime[j] = false;
+            }
+        }
+    }
+    
+    return isPrime;
+}
+
+// Get all primes up to n
+vector&lt;int&gt; getPrimes(int n) {
+    vector&lt;bool&gt; isPrime = sieve(n);
+    vector&lt;int&gt; primes;
+    
+    for (int i = 2; i &lt;= n; i++) {
+        if (isPrime[i]) {
+            primes.push_back(i);
+        }
+    }
+    
+    return primes;
+}</code></pre>
+
+        <h3>Segmented Sieve</h3>
+        <p>Find primes in a range [L, R] where R can be very large.</p>
+
+        <pre><code>vector&lt;long long&gt; segmentedSieve(long long L, long long R) {
+    // Generate primes up to sqrt(R)
+    long long limit = sqrt(R);
+    vector&lt;bool&gt; isPrime = sieve(limit);
+    vector&lt;long long&gt; primes = getPrimes(limit);
+    
+    // Create array for range [L, R]
+    vector&lt;bool&gt; rangePrime(R - L + 1, true);
+    
+    for (long long p : primes) {
+        long long start = max(p * p, (L + p - 1) / p * p);
+        
+        for (long long j = start; j &lt;= R; j += p) {
+            rangePrime[j - L] = false;
+        }
+    }
+    
+    vector&lt;long long&gt; result;
+    for (long long i = L; i &lt;= R; i++) {
+        if (rangePrime[i - L]) {
+            result.push_back(i);
+        }
+    }
+    
+    return result;
+}</code></pre>
+
+        <h3>Miller-Rabin Primality Test</h3>
+        <p>Probabilistic test for large numbers.</p>
+
+        <pre><code>long long power(long long a, long long n, long long mod) {
+    long long result = 1;
+    a %= mod;
+    
+    while (n &gt; 0) {
+        if (n &amp; 1) {
+            result = (result * a) % mod;
+        }
+        a = (a * a) % mod;
+        n &gt;&gt;= 1;
+    }
+    
+    return result;
+}
+
+bool millerRabin(long long n, int k = 5) {
+    if (n &lt;= 1 || n == 4) return false;
+    if (n &lt;= 3) return true;
+    
+    long long d = n - 1;
+    while (d % 2 == 0) {
+        d /= 2;
+    }
+    
+    for (int i = 0; i &lt; k; i++) {
+        long long a = 2 + rand() % (n - 4);
+        long long x = power(a, d, n);
+        
+        if (x == 1 || x == n - 1) continue;
+        
+        bool composite = true;
+        for (int j = 0; j &lt; d - 1; j++) {
+            x = (x * x) % n;
+            if (x == n - 1) {
+                composite = false;
+                break;
+            }
+        }
+        
+        if (composite) return false;
+    }
+    
+    return true;
+}</code></pre>
+
+        <h2 id="gcd-lcm">GCD and LCM</h2>
+
+        <div class="algorithm-box">
+            <h4>Euclidean Algorithm</h4>
+            <p>Find the greatest common divisor efficiently.</p>
+            <div class="complexity">Time Complexity: O(log min(a, b))</div>
+        </div>
+
+        <pre><code>int gcd(int a, int b) {
+    if (b == 0) return a;
+    return gcd(b, a % b);
+}
+
+// Iterative version
+int gcdIterative(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+// Built-in version
+int gcdBuiltin(int a, int b) {
+    return __gcd(a, b);
+}</code></pre>
+
+        <h3>Extended Euclidean Algorithm</h3>
+        <p>Find GCD and coefficients x, y such that ax + by = gcd(a, b).</p>
+
+        <pre><code>int extendedGcd(int a, int b, int&amp; x, int&amp; y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    }
+    
+    int x1, y1;
+    int g = extendedGcd(b, a % b, x1, y1);
+    
+    x = y1;
+    y = x1 - (a / b) * y1;
+    
+    return g;
+}</code></pre>
+
+        <h3>LCM Calculation</h3>
+        <p>Least Common Multiple using GCD.</p>
+
+        <pre><code>long long lcm(int a, int b) {
+    return (long long)a * b / gcd(a, b);
+}</code></pre>
+
+        <h3>Applications</h3>
+        <pre><code>// Check if two numbers are coprime
+bool isCoprime(int a, int b) {
+    return gcd(a, b) == 1;
+}
+
+// Find modular inverse using Extended Euclidean
+int modInverse(int a, int m) {
+    int x, y;
+    int g = extendedGcd(a, m, x, y);
+    
+    if (g != 1) {
+        return -1; // Inverse doesn't exist
+    }
+    
+    return (x % m + m) % m;
+}</code></pre>
+
+        <h2 id="modular-arithmetic">Modular Arithmetic</h2>
+
+        <h3>Basic Operations</h3>
+        <pre><code>const int MOD = 1000000007;
+
+int add(int a, int b) {
+    return (a + b) % MOD;
+}
+
+int subtract(int a, int b) {
+    return (a - b + MOD) % MOD;
+}
+
+int multiply(int a, int b) {
+    return ((long long)a * b) % MOD;
+}</code></pre>
+
+        <h3>Modular Exponentiation</h3>
+        <p>Fast exponentiation using binary method.</p>
+
+        <pre><code>long long power(long long base, long long exp, long long mod) {
+    long long result = 1;
+    base %= mod;
+    
+    while (exp &gt; 0) {
+        if (exp &amp; 1) {
+            result = (result * base) % mod;
+        }
+        base = (base * base) % mod;
+        exp &gt;&gt;= 1;
+    }
+    
+    return result;
+}</code></pre>
+
+        <h3>Modular Inverse</h3>
+        <pre><code>// Using Fermat's Little Theorem (when mod is prime)
+int modInverseFermat(int a, int mod) {
+    return power(a, mod - 2, mod);
+}
+
+// Using Extended Euclidean Algorithm
+int modInverseExtended(int a, int mod) {
+    int x, y;
+    int g = extendedGcd(a, mod, x, y);
+    
+    if (g != 1) return -1;
+    
+    return (x % mod + mod) % mod;
+}</code></pre>
+
+        <h3>Combinatorics with Modular Arithmetic</h3>
+        <pre><code>// Precompute factorials and inverse factorials
+vector&lt;long long&gt; fact, invFact;
+
+void precomputeFactorials(int n, int mod) {
+    fact.resize(n + 1);
+    invFact.resize(n + 1);
+    
+    fact[0] = 1;
+    for (int i = 1; i &lt;= n; i++) {
+        fact[i] = (fact[i - 1] * i) % mod;
+    }
+    
+    invFact[n] = modInverseFermat(fact[n], mod);
+    for (int i = n - 1; i &gt;= 0; i--) {
+        invFact[i] = (invFact[i + 1] * (i + 1)) % mod;
+    }
+}
+
+// nCr mod p
+long long nCr(int n, int r, int mod) {
+    if (r &gt; n || r &lt; 0) return 0;
+    return (fact[n] * invFact[r] % mod) * invFact[n - r] % mod;
+}</code></pre>
+
+        <h2 id="euler-totient">Euler's Totient Function</h2>
+
+        <h3>Definition</h3>
+        <p>φ(n) = number of integers from 1 to n that are coprime with n.</p>
+
+        <h3>Basic Implementation</h3>
+        <pre><code>int eulerTotient(int n) {
+    int result = n;
+    
+    for (int p = 2; p * p &lt;= n; p++) {
+        if (n % p == 0) {
+            while (n % p == 0) {
+                n /= p;
+            }
+            result -= result / p;
+        }
+    }
+    
+    if (n &gt; 1) {
+        result -= result / n;
+    }
+    
+    return result;
+}</code></pre>
+
+        <h3>Using Sieve</h3>
+        <pre><code>vector&lt;int&gt; eulerTotientSieve(int n) {
+    vector&lt;int&gt; phi(n + 1);
+    
+    for (int i = 0; i &lt;= n; i++) {
+        phi[i] = i;
+    }
+    
+    for (int p = 2; p &lt;= n; p++) {
+        if (phi[p] == p) { // p is prime
+            for (int i = p; i &lt;= n; i += p) {
+                phi[i] -= phi[i] / p;
+            }
+        }
+    }
+    
+    return phi;
+}</code></pre>
+
+        <h3>Applications</h3>
+        <pre><code>// Euler's theorem: a^φ(n) ≡ 1 (mod n) when gcd(a, n) = 1
+long long powerWithEuler(long long a, long long exp, long long mod) {
+    if (gcd(a, mod) == 1) {
+        exp = exp % eulerTotient(mod);
+    }
+    return power(a, exp, mod);
+}</code></pre>
+
+        <h2 id="chinese-remainder">Chinese Remainder Theorem</h2>
+
+        <h3>Problem Statement</h3>
+        <p>Given a system of congruences:</p>
+        <ul>
+            <li>x ≡ a₁ (mod m₁)</li>
+            <li>x ≡ a₂ (mod m₂)</li>
+            <li>...</li>
+            <li>x ≡ aₖ (mod mₖ)</li>
+        </ul>
+        <p>Find x if m₁, m₂, ..., mₖ are pairwise coprime.</p>
+
+        <h3>Implementation</h3>
+        <pre><code>int chineseRemainder(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; m) {
+    int n = a.size();
+    int M = 1;
+    
+    // Calculate M = m₁ * m₂ * ... * mₖ
+    for (int i = 0; i &lt; n; i++) {
+        M *= m[i];
+    }
+    
+    int result = 0;
+    
+    for (int i = 0; i &lt; n; i++) {
+        int Mi = M / m[i];
+        int Mi_inv = modInverseExtended(Mi, m[i]);
+        
+        result = (result + (long long)a[i] * Mi * Mi_inv) % M;
+    }
+    
+    return result;
+}</code></pre>
+
+        <h2 id="combinatorics">Combinatorics</h2>
+
+        <h3>Permutations and Combinations</h3>
+        <pre><code>// Permutation: P(n, r) = n! / (n-r)!
+long long permutation(int n, int r, int mod) {
+    if (r &gt; n) return 0;
+    return (fact[n] * invFact[n - r]) % mod;
+}
+
+// Combination: C(n, r) = n! / (r! * (n-r)!)
+long long combination(int n, int r, int mod) {
+    if (r &gt; n || r &lt; 0) return 0;
+    return (fact[n] * invFact[r] % mod) * invFact[n - r] % mod;
+}</code></pre>
+
+        <h3>Catalan Numbers</h3>
+        <pre><code>long long catalan(int n, int mod) {
+    return combination(2 * n, n, mod) * modInverseFermat(n + 1, mod) % mod;
+}</code></pre>
+
+        <h3>Stirling Numbers</h3>
+        <pre><code>// Stirling numbers of the second kind
+vector&lt;vector&lt;long long&gt;&gt; stirling(int n, int k, int mod) {
+    vector&lt;vector&lt;long long&gt;&gt; dp(n + 1, vector&lt;long long&gt;(k + 1, 0));
+    
+    dp[0][0] = 1;
+    
+    for (int i = 1; i &lt;= n; i++) {
+        for (int j = 1; j &lt;= min(i, k); j++) {
+            dp[i][j] = (dp[i - 1][j - 1] + j * dp[i - 1][j]) % mod;
+        }
+    }
+    
+    return dp;
+}</code></pre>
+
+        <h2 id="advanced-topics">Advanced Topics</h2>
+
+        <h3>Discrete Logarithm</h3>
+        <p>Find x such that a^x ≡ b (mod m).</p>
+
+        <pre><code>int discreteLog(int a, int b, int m) {
+    int n = sqrt(m) + 1;
+    
+    // Baby-step
+    unordered_map&lt;int, int&gt; baby;
+    int an = power(a, n, m);
+    
+    for (int p = 1, val = an; p &lt;= n; p++) {
+        if (baby.find(val) == baby.end()) {
+            baby[val] = p;
+        }
+        val = (val * an) % m;
+    }
+    
+    // Giant-step
+    for (int q = 0, val = b; q &lt;= n; q++) {
+        if (baby.find(val) != baby.end()) {
+            return baby[val] * n - q;
+        }
+        val = (val * a) % m;
+    }
+    
+    return -1; // Not found
+}</code></pre>
+
+        <h3>Pollard's Rho Algorithm</h3>
+        <p>Factor large numbers efficiently.</p>
+
+        <pre><code>long long pollardRho(long long n) {
+    if (n == 1) return 1;
+    if (n % 2 == 0) return 2;
+    
+    long long x = rand() % (n - 2) + 2;
+    long long y = x;
+    long long c = rand() % (n - 1) + 1;
+    long long d = 1;
+    
+    while (d == 1) {
+        x = (power(x, 2, n) + c) % n;
+        y = (power(y, 2, n) + c) % n;
+        y = (power(y, 2, n) + c) % n;
+        d = gcd(abs(x - y), n);
+    }
+    
+    return d;
+}</code></pre>
+
+        <h2 id="practice-problems">Practice Problems</h2>
+
+        <h3>Easy Level:</h3>
+        <ul>
+            <li>Check if a number is prime</li>
+            <li>Find GCD of two numbers</li>
+            <li>Calculate LCM of two numbers</li>
+            <li>Find all divisors of a number</li>
+            <li>Count number of divisors</li>
+        </ul>
+
+        <h3>Medium Level:</h3>
+        <ul>
+            <li>Sieve of Eratosthenes</li>
+            <li>Extended Euclidean Algorithm</li>
+            <li>Modular exponentiation</li>
+            <li>Euler's totient function</li>
+            <li>Chinese Remainder Theorem</li>
+        </ul>
+
+        <h3>Hard Level:</h3>
+        <ul>
+            <li>Miller-Rabin primality test</li>
+            <li>Pollard's Rho factorization</li>
+            <li>Discrete logarithm</li>
+            <li>Advanced combinatorics</li>
+            <li>Number theory in cryptography</li>
+        </ul>
+
+        <h2 id="tips">Tips for Competitive Programming</h2>
+
+        <div class="tip">
+            <h4>1. Time Complexity Analysis</h4>
+            <ul>
+                <li><strong>Sieve of Eratosthenes</strong>: O(n log log n)</li>
+                <li><strong>GCD (Euclidean)</strong>: O(log min(a, b))</li>
+                <li><strong>Modular Exponentiation</strong>: O(log exp)</li>
+                <li><strong>Prime Factorization</strong>: O(√n)</li>
+            </ul>
+        </div>
+
+        <div class="tip">
+            <h4>2. Common Patterns</h4>
+            <ul>
+                <li><strong>Prime checking</strong>: Use trial division for small numbers, Miller-Rabin for large</li>
+                <li><strong>GCD/LCM</strong>: Always use Euclidean algorithm</li>
+                <li><strong>Modular arithmetic</strong>: Always use modular operations for large numbers</li>
+                <li><strong>Combinatorics</strong>: Precompute factorials for efficiency</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <h4>3. Common Mistakes</h4>
+            <ul>
+                <li>Integer overflow in modular arithmetic</li>
+                <li>Forgetting to handle edge cases (n = 0, 1)</li>
+                <li>Incorrect modular inverse calculation</li>
+                <li>Not considering negative numbers in modular arithmetic</li>
+            </ul>
+        </div>
+
+        <div class="success">
+            <h4>4. Optimization Tips</h4>
+            <ul>
+                <li>Use <code>__gcd()</code> built-in function when available</li>
+                <li>Precompute factorials and inverse factorials</li>
+                <li>Use bit manipulation for power of 2 operations</li>
+                <li>Cache results for repeated calculations</li>
+            </ul>
+        </div>
+
+        <h3>Debugging Tips</h3>
+        <ul>
+            <li>Test with small examples first</li>
+            <li>Verify results with known values</li>
+            <li>Use modular arithmetic consistently</li>
+            <li>Check for integer overflow</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>Number Theory is essential for competitive programming. Master these concepts by:</p>
+        <ol>
+            <li><strong>Understanding the fundamentals</strong>: Divisibility, primes, GCD/LCM</li>
+            <li><strong>Learning efficient algorithms</strong>: Sieve, Euclidean algorithm, modular exponentiation</li>
+            <li><strong>Practicing modular arithmetic</strong>: Essential for handling large numbers</li>
+            <li><strong>Solving problems</strong>: Start with basic problems and gradually increase difficulty</li>
+            <li><strong>Optimizing solutions</strong>: Use precomputation and efficient algorithms</li>
+        </ol>
+
+        <div class="highlight">
+            <p><strong>Remember:</strong> Practice makes perfect! Solve as many number theory problems as possible to
+                internalize these concepts.</p>
+        </div>
+
+        <h2>Additional Resources</h2>
+        <ul>
+            <li><strong>Online Judges</strong>: Codeforces, CodeChef, AtCoder</li>
+            <li><strong>Books</strong>: "Introduction to Algorithms" by Cormen et al.</li>
+            <li><strong>Practice</strong>: Start with basic number theory, then move to advanced topics</li>
+            <li><strong>Contests</strong>: Participate in regular contests to apply these techniques</li>
+        </ul>
+
+        <div class="footer">
+            <p>Good luck with your competitive programming journey!</p>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top">↑</a>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Back to top functionality
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+
+</html>
