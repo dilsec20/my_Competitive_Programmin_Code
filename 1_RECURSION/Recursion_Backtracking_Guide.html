@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursion & Backtracking in C++ for Competitive Programming</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+
+        h4 {
+            color: #34495e;
+            margin-top: 20px;
+        }
+
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+        }
+
+        pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        pre code {
+            background-color: transparent;
+            color: #ecf0f1;
+            padding: 0;
+        }
+
+        .toc {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 8px 0;
+        }
+
+        .toc a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            color: #3498db;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .tip {
+            background-color: #d1ecf1;
+            padding: 15px;
+            border-left: 4px solid #17a2b8;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .warning {
+            background-color: #f8d7da;
+            padding: 15px;
+            border-left: 4px solid #dc3545;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Recursion & Backtracking in C++ for Competitive Programming</h1>
+
+        <div class="toc">
+            <h2>Table of Contents</h2>
+            <ul>
+                <li><a href="#introduction">1. Introduction</a></li>
+                <li><a href="#recursion-fundamentals">2. Recursion Fundamentals</a></li>
+                <li><a href="#advanced-recursion-patterns">3. Advanced Recursion Patterns</a></li>
+                <li><a href="#backtracking-concepts">4. Backtracking Concepts</a></li>
+                <li><a href="#classic-backtracking-problems">5. Classic Backtracking Problems</a></li>
+                <li><a href="#competitive-programming-problems">6. Competitive Programming Problems</a></li>
+                <li><a href="#optimization-techniques">7. Optimization Techniques</a></li>
+                <li><a href="#practice-problems">8. Practice Problems</a></li>
+                <li><a href="#tips-for-competitive-programming">9. Tips for Competitive Programming</a></li>
+            </ul>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h2 id="introduction">Introduction</h2>
+        <p>Recursion and backtracking are fundamental concepts in competitive programming. This guide provides a
+            comprehensive approach to mastering these techniques with practical examples and competitive programming
+            problems.</p>
+
+        <div class="highlight">
+            <strong>What You'll Learn:</strong>
+            <ul>
+                <li>Core recursion concepts and patterns</li>
+                <li>Backtracking algorithms and templates</li>
+                <li>Optimization techniques (memoization, pruning)</li>
+                <li>Competitive programming problem-solving strategies</li>
+                <li>Time and space complexity analysis</li>
+            </ul>
+        </div>
+
+        <h2 id="recursion-fundamentals">Recursion Fundamentals</h2>
+
+        <h3>Basic Recursion Template</h3>
+        <pre><code>returnType function(parameters) {
+    // Base case
+    if (base_condition) {
+        return base_value;
+    }
+    
+    // Recursive case
+    return combine(
+        function(modified_parameters),
+        current_work
+    );
+}</code></pre>
+
+        <h3>Key Concepts:</h3>
+        <ol>
+            <li><strong>Base Case:</strong> The stopping condition that prevents infinite recursion</li>
+            <li><strong>Recursive Case:</strong> The part that calls the function with modified parameters</li>
+            <li><strong>Call Stack:</strong> Understanding how recursive calls are managed in memory</li>
+        </ol>
+
+        <h3>Example: Factorial</h3>
+        <pre><code>int factorial(int n) {
+    if (n == 0) return 1;  // Base case
+    return n * factorial(n - 1);  // Recursive case
+}</code></pre>
+
+        <h3>Example: Fibonacci</h3>
+        <pre><code>int fibonacci(int n) {
+    if (n <= 1) return n;  // Base cases
+    return fibonacci(n - 1) + fibonacci(n - 2);  // Recursive case
+}</code></pre>
+
+        <h3>Example: Digit Sum</h3>
+        <pre><code>int digitSum(int n) {
+    if (n == 0) return 0;  // Base case
+    return (n % 10) + digitSum(n / 10);  // Recursive case
+}</code></pre>
+
+        <div class="page-break"></div>
+
+        <h2 id="advanced-recursion-patterns">Advanced Recursion Patterns</h2>
+
+        <h3>1. Tree Traversal (DFS)</h3>
+        <pre><code>void preorder(TreeNode* root) {
+    if (!root) return;
+    cout << root->val << " ";  // Process root
+    preorder(root->left);       // Visit left
+    preorder(root->right);      // Visit right
+}
+
+void inorder(TreeNode* root) {
+    if (!root) return;
+    inorder(root->left);        // Visit left
+    cout << root->val << " ";  // Process root
+    inorder(root->right);       // Visit right
+}
+
+void postorder(TreeNode* root) {
+    if (!root) return;
+    postorder(root->left);      // Visit left
+    postorder(root->right);     // Visit right
+    cout << root->val << " ";  // Process root
+}</code></pre>
+
+        <h3>2. Divide & Conquer</h3>
+        <pre><code>int binarySearch(vector&lt;int&gt;&amp; arr, int target, int left, int right) {
+    if (left &gt; right) return -1;  // Base case: not found
+    
+    int mid = left + (right - left) / 2;
+    
+    if (arr[mid] == target) return mid;  // Base case: found
+    
+    // Recursive cases
+    if (arr[mid] &gt; target) {
+        return binarySearch(arr, target, left, mid - 1);
+    } else {
+        return binarySearch(arr, target, mid + 1, right);
+    }
+}</code></pre>
+
+        <h3>3. Memoization</h3>
+        <pre><code>unordered_map&lt;int, long long&gt; memo;
+
+long long fibonacciMemo(int n) {
+    if (n &lt;= 1) return n;  // Base cases
+    
+    if (memo.find(n) != memo.end()) {
+        return memo[n];  // Return cached result
+    }
+    
+    memo[n] = fibonacciMemo(n - 1) + fibonacciMemo(n - 2);
+    return memo[n];
+}</code></pre>
+
+        <h3>4. Multiple Recursive Calls</h3>
+        <pre><code>int countPaths(int m, int n) {
+    // Base case: reached destination
+    if (m == 1 || n == 1) return 1;
+    
+    // Recursive case: sum of paths from top and left
+    return countPaths(m - 1, n) + countPaths(m, n - 1);
+}</code></pre>
+
+        <div class="page-break"></div>
+
+        <h2 id="backtracking-concepts">Backtracking Concepts</h2>
+
+        <h3>What is Backtracking?</h3>
+        <p>Backtracking is a systematic way to explore all possible solutions by building solutions incrementally and
+            abandoning partial solutions that cannot lead to a complete solution.</p>
+
+        <h3>Backtracking Template</h3>
+        <pre><code>void backtrack(current_state) {
+    // Base case: found a solution
+    if (is_solution(current_state)) {
+        process_solution(current_state);
+        return;
+    }
+    
+    // Try all possible choices
+    for (each possible choice) {
+        if (is_valid(choice)) {
+            make_choice(choice);           // Choose
+            backtrack(updated_state);      // Explore
+            undo_choice(choice);           // Unchoose (Backtrack!)
+        }
+    }
+}</code></pre>
+
+        <div class="tip">
+            <strong>Key Components:</strong>
+            <ol>
+                <li><strong>Choose:</strong> Make a choice</li>
+                <li><strong>Explore:</strong> Recurse with the choice</li>
+                <li><strong>Unchoose:</strong> Undo the choice (backtrack)</li>
+            </ol>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h2 id="classic-backtracking-problems">Classic Backtracking Problems</h2>
+
+        <h3>1. N-Queens Problem</h3>
+        <pre><code>class NQueens {
+public:
+    vector&lt;vector&lt;string&gt;&gt; solveNQueens(int n) {
+        vector&lt;vector&lt;string&gt;&gt; solutions;
+        vector&lt;string&gt; board(n, string(n, '.'));
+        solve(board, 0, solutions);
+        return solutions;
+    }
+    
+private:
+    void solve(vector&lt;string&gt;&amp; board, int row, vector&lt;vector&lt;string&gt;&gt;&amp; solutions) {
+        int n = board.size();
+        
+        // Base case: placed all queens
+        if (row == n) {
+            solutions.push_back(board);
+            return;
+        }
+        
+        // Try placing queen in each column of current row
+        for (int col = 0; col &lt; n; col++) {
+            if (isValid(board, row, col)) {
+                board[row][col] = 'Q';  // Make choice
+                solve(board, row + 1, solutions);  // Explore
+                board[row][col] = '.';  // Backtrack
+            }
+        }
+    }
+    
+    bool isValid(vector&lt;string&gt;&amp; board, int row, int col) {
+        int n = board.size();
+        
+        // Check column
+        for (int i = 0; i &lt; row; i++) {
+            if (board[i][col] == 'Q') return false;
+        }
+        
+        // Check diagonals
+        for (int i = row - 1, j = col - 1; i &gt;= 0 &amp;&amp; j &gt;= 0; i--, j--) {
+            if (board[i][j] == 'Q') return false;
+        }
+        
+        for (int i = row - 1, j = col + 1; i &gt;= 0 &amp;&amp; j &lt; n; i--, j++) {
+            if (board[i][j] == 'Q') return false;
+        }
+        
+        return true;
+    }
+};</code></pre>
+
+        <h3>2. Generate All Subsets</h3>
+        <pre><code>class Subsets {
+public:
+    vector&lt;vector&lt;int&gt;&gt; generateSubsets(vector&lt;int&gt;&amp; nums) {
+        vector&lt;vector&lt;int&gt;&gt; result;
+        vector&lt;int&gt; current;
+        backtrack(nums, 0, current, result);
+        return result;
+    }
+    
+private:
+    void backtrack(vector&lt;int&gt;&amp; nums, int start, vector&lt;int&gt;&amp; current, vector&lt;vector&lt;int&gt;&gt;&amp; result) {
+        // Every subset is valid, so we add it
+        result.push_back(current);
+        
+        // Try adding each remaining element
+        for (int i = start; i &lt; nums.size(); i++) {
+            current.push_back(nums[i]);  // Choose
+            backtrack(nums, i + 1, current, result);  // Explore
+            current.pop_back();  // Backtrack
+        }
+    }
+};</code></pre>
+
+        <h3>3. Generate All Permutations</h3>
+        <pre><code>class Permutations {
+public:
+    vector&lt;vector&lt;int&gt;&gt; generatePermutations(vector&lt;int&gt;&amp; nums) {
+        vector&lt;vector&lt;int&gt;&gt; result;
+        backtrack(nums, 0, result);
+        return result;
+    }
+    
+private:
+    void backtrack(vector&lt;int&gt;&amp; nums, int start, vector&lt;vector&lt;int&gt;&gt;&amp; result) {
+        // Base case: generated a complete permutation
+        if (start == nums.size()) {
+            result.push_back(nums);
+            return;
+        }
+        
+        // Try each element at current position
+        for (int i = start; i &lt; nums.size(); i++) {
+            swap(nums[start], nums[i]);  // Choose
+            backtrack(nums, start + 1, result);  // Explore
+            swap(nums[start], nums[i]);  // Backtrack
+        }
+    }
+};</code></pre>
+
+        <div class="page-break"></div>
+
+        <h2 id="competitive-programming-problems">Competitive Programming Problems</h2>
+
+        <h3>1. Unique Paths with Obstacles</h3>
+        <pre><code>class UniquePaths {
+public:
+    int uniquePathsWithObstacles(vector&lt;vector&lt;int&gt;&gt;&amp; obstacleGrid) {
+        int m = obstacleGrid.size(), n = obstacleGrid[0].size();
+        vector&lt;vector&lt;int&gt;&gt; dp(m, vector&lt;int&gt;(n, -1));
+        return dfs(obstacleGrid, 0, 0, dp);
+    }
+    
+private:
+    int dfs(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int i, int j, vector&lt;vector&lt;int&gt;&gt;&amp; dp) {
+        int m = grid.size(), n = grid[0].size();
+        
+        // Base cases
+        if (i &gt;= m || j &gt;= n || grid[i][j] == 1) return 0;
+        if (i == m - 1 &amp;&amp; j == n - 1) return 1;
+        
+        // Memoization
+        if (dp[i][j] != -1) return dp[i][j];
+        
+        // Recursive case: go right or down
+        dp[i][j] = dfs(grid, i + 1, j, dp) + dfs(grid, i, j + 1, dp);
+        return dp[i][j];
+    }
+};</code></pre>
+
+        <h3>2. Generate Combinations (n choose k)</h3>
+        <pre><code>class Combinations {
+public:
+    vector&lt;vector&lt;int&gt;&gt; combine(int n, int k) {
+        vector&lt;vector&lt;int&gt;&gt; result;
+        vector&lt;int&gt; current;
+        backtrack(1, n, k, current, result);
+        return result;
+    }
+    
+private:
+    void backtrack(int start, int n, int k, vector&lt;int&gt;&amp; current, vector&lt;vector&lt;int&gt;&gt;&amp; result) {
+        // Base case: found k numbers
+        if (current.size() == k) {
+            result.push_back(current);
+            return;
+        }
+        
+        // Try each number from start to n
+        for (int i = start; i &lt;= n; i++) {
+            current.push_back(i);  // Choose
+            backtrack(i + 1, n, k, current, result);  // Explore
+            current.pop_back();  // Backtrack
+        }
+    }
+};</code></pre>
+
+        <h3>3. Word Search</h3>
+        <pre><code>class WordSearch {
+public:
+    bool exist(vector&lt;vector&lt;char&gt;&gt;&amp; board, string word) {
+        int m = board.size(), n = board[0].size();
+        
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                if (backtrack(board, word, i, j, 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+private:
+    bool backtrack(vector&lt;vector&lt;char&gt;&gt;&amp; board, string&amp; word, int i, int j, int index) {
+        // Base case: found the word
+        if (index == word.length()) return true;
+        
+        // Boundary check
+        if (i &lt; 0 || i &gt;= board.size() || j &lt; 0 || j &gt;= board[0].size()) return false;
+        
+        // Character mismatch
+        if (board[i][j] != word[index]) return false;
+        
+        char temp = board[i][j];
+        board[i][j] = '#';  // Mark as visited
+        
+        // Try all 4 directions
+        bool found = backtrack(board, word, i + 1, j, index + 1) ||
+                     backtrack(board, word, i - 1, j, index + 1) ||
+                     backtrack(board, word, i, j + 1, index + 1) ||
+                     backtrack(board, word, i, j - 1, index + 1);
+        
+        board[i][j] = temp;  // Backtrack
+        return found;
+    }
+};</code></pre>
+
+        <div class="page-break"></div>
+
+        <h2 id="optimization-techniques">Optimization Techniques</h2>
+
+        <h3>1. Memoization</h3>
+        <pre><code>// Fibonacci with memoization
+unordered_map&lt;int, long long&gt; memo;
+
+long long fibonacciMemo(int n) {
+    if (n &lt;= 1) return n;
+    if (memo.find(n) != memo.end()) return memo[n];
+    
+    memo[n] = fibonacciMemo(n - 1) + fibonacciMemo(n - 2);
+    return memo[n];
+}</code></pre>
+
+        <h3>2. Pruning</h3>
+        <pre><code>// Early termination in backtracking
+bool canPartition(vector&lt;int&gt;&amp; nums) {
+    int sum = accumulate(nums.begin(), nums.end(), 0);
+    if (sum % 2 != 0) return false;  // Early pruning
+    
+    sort(nums.rbegin(), nums.rend());  // Sort descending for better pruning
+    return backtrack(nums, 0, sum / 2);
+}
+
+bool backtrack(vector&lt;int&gt;&amp; nums, int index, int target) {
+    if (target == 0) return true;
+    if (index &gt;= nums.size() || target &lt; 0) return false;
+    
+    // Pruning: if current number is greater than target, skip
+    if (nums[index] &gt; target) return false;
+    
+    // Try including current number
+    if (backtrack(nums, index + 1, target - nums[index])) return true;
+    
+    // Try excluding current number
+    return backtrack(nums, index + 1, target);
+}</code></pre>
+
+        <h3>3. DP Transitions</h3>
+        <pre><code>// Convert recursion to iterative DP
+int climbStairsDP(int n) {
+    if (n &lt;= 2) return n;
+    
+    vector&lt;int&gt; dp(n + 1);
+    dp[1] = 1;
+    dp[2] = 2;
+    
+    for (int i = 3; i &lt;= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    
+    return dp[n];
+}</code></pre>
+
+        <div class="page-break"></div>
+
+        <h2 id="practice-problems">Practice Problems</h2>
+
+        <h3>Easy Level:</h3>
+        <ol>
+            <li>Print all permutations of a string</li>
+            <li>Count ways to reach nth stair</li>
+            <li>Generate all subsets of an array</li>
+            <li>Find all paths in a binary tree</li>
+            <li>Generate all valid parentheses</li>
+        </ol>
+
+        <h3>Medium Level:</h3>
+        <ol>
+            <li>N-Queens problem</li>
+            <li>Sudoku solver</li>
+            <li>Word search in 2D grid</li>
+            <li>Combination sum</li>
+            <li>Palindrome partitioning</li>
+        </ol>
+
+        <h3>Hard Level:</h3>
+        <ol>
+            <li>Word break II</li>
+            <li>Letter case permutation</li>
+            <li>Subsets with duplicates</li>
+            <li>Rat in a maze</li>
+            <li>Generate all permutations with duplicates</li>
+        </ol>
+
+        <h3>Sample Solutions:</h3>
+
+        <h4>Print Permutations</h4>
+        <pre><code>void printPermutations(string str, int left, int right) {
+    if (left == right) {
+        cout &lt;&lt; str &lt;&lt; " ";
+        return;
+    }
+    
+    for (int i = left; i &lt;= right; i++) {
+        swap(str[left], str[i]);
+        printPermutations(str, left + 1, right);
+        swap(str[left], str[i]);  // Backtrack
+    }
+}</code></pre>
+
+        <h4>Count Stairs</h4>
+        <pre><code>int countStairs(int n) {
+    if (n &lt;= 1) return 1;
+    return countStairs(n - 1) + countStairs(n - 2);
+}</code></pre>
+
+        <h4>Generate Subsets</h4>
+        <pre><code>void generateSubsets(vector&lt;int&gt;&amp; nums, vector&lt;int&gt;&amp; current, int index, vector&lt;vector&lt;int&gt;&gt;&amp; result) {
+    result.push_back(current);
+    
+    for (int i = index; i &lt; nums.size(); i++) {
+        current.push_back(nums[i]);
+        generateSubsets(nums, current, i + 1, result);
+        current.pop_back();
+    }
+}</code></pre>
+
+        <div class="page-break"></div>
+
+        <h2 id="tips-for-competitive-programming">Tips for Competitive Programming</h2>
+
+        <h3>1. Time Complexity Analysis</h3>
+        <ul>
+            <li><strong>Recursion:</strong> O(branches^depth) where branches = number of choices at each step</li>
+            <li><strong>Backtracking:</strong> O(2^n) for subsets, O(n!) for permutations</li>
+            <li><strong>Memoization:</strong> Reduces exponential time to polynomial</li>
+        </ul>
+
+        <h3>2. Space Complexity</h3>
+        <ul>
+            <li><strong>Recursion:</strong> O(depth) for call stack</li>
+            <li><strong>Backtracking:</strong> O(depth) for recursion + O(n) for current solution</li>
+            <li><strong>Memoization:</strong> O(n) for cache storage</li>
+        </ul>
+
+        <h3>3. Common Patterns</h3>
+        <ul>
+            <li><strong>Generate all:</strong> Use backtracking</li>
+            <li><strong>Count ways:</strong> Use recursion with memoization</li>
+            <li><strong>Find one solution:</strong> Use backtracking with early return</li>
+            <li><strong>Optimization:</strong> Use DP instead of pure recursion</li>
+        </ul>
+
+        <h3>4. Debugging Tips</h3>
+        <ul>
+            <li>Draw recursion trees for complex problems</li>
+            <li>Use print statements to trace execution</li>
+            <li>Check base cases carefully</li>
+            <li>Verify backtracking (undo operations)</li>
+        </ul>
+
+        <h3>5. Performance Optimization</h3>
+        <ul>
+            <li>Use memoization for overlapping subproblems</li>
+            <li>Apply pruning to reduce search space</li>
+            <li>Consider iterative solutions for better space efficiency</li>
+            <li>Use bit manipulation for subset problems</li>
+        </ul>
+
+        <h3>6. Common Mistakes</h3>
+        <div class="warning">
+            <ul>
+                <li>Forgetting base cases</li>
+                <li>Not undoing choices in backtracking</li>
+                <li>Infinite recursion due to incorrect base case</li>
+                <li>Stack overflow for deep recursion</li>
+            </ul>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h2>Conclusion</h2>
+        <p>Recursion and backtracking are powerful techniques in competitive programming. Master these concepts by:</p>
+
+        <ol>
+            <li><strong>Understanding the fundamentals:</strong> Base cases, recursive cases, call stack</li>
+            <li><strong>Learning the patterns:</strong> Tree traversal, divide & conquer, memoization</li>
+            <li><strong>Practicing backtracking:</strong> Use the template, understand choose-explore-unchoose</li>
+            <li><strong>Optimizing solutions:</strong> Apply memoization, pruning, and DP transitions</li>
+            <li><strong>Solving problems:</strong> Start with easy problems and gradually increase difficulty</li>
+        </ol>
+
+        <div class="tip">
+            <strong>Remember:</strong> Practice makes perfect! Solve as many problems as possible to internalize these
+            concepts.
+        </div>
+
+        <h3>Additional Resources</h3>
+        <ul>
+            <li><strong>Online Judges:</strong> LeetCode, Codeforces, AtCoder</li>
+            <li><strong>Books:</strong> "Introduction to Algorithms" by Cormen et al.</li>
+            <li><strong>Practice:</strong> Start with recursion basics, then move to backtracking</li>
+            <li><strong>Contests:</strong> Participate in regular contests to apply these techniques</li>
+        </ul>
+
+        <div class="highlight">
+            <h3>Good luck with your competitive programming journey!</h3>
+        </div>
+    </div>
+</body>
+
+</html>
