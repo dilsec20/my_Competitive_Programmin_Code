@@ -1,3 +1,5 @@
 WELCOME, To this page.
-Here, I have listed all my CP resources and roadmap to CP.
+Resources to learn comptetitive programming. 
+
+this list is made by me .
 
